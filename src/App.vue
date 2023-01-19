@@ -1,26 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Suspense>
+    <template #default>
+      <HomeComponent msg="Welcome to Your Vue.js App" />
+    </template>
+    <template #fallback>
+      <LoadingSpinner />
+    </template>
+  </Suspense>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { defineAsyncComponent } from "vue"
+import LoadingSpinner from "@/components/LoadingSpinner"
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
+    HomeComponent: defineAsyncComponent(() => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(import("@/components/HomeComponent.vue"))
+        }, 2500)
+      })
+    }),
+    LoadingSpinner,
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import "assets/css/reset.css";
+
+body {
+  font-family: "Montserrat", sans-serif;
 }
 </style>
