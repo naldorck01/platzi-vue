@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <router-view />
+    UserView
 </template>
 
 <style scoped>

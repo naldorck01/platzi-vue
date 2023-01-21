@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <router-view />
+    404View
 </template>
 
 <style scoped>

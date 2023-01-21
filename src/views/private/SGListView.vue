@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <router-view />
+    SGListView
 </template>
 
 <style scoped>
