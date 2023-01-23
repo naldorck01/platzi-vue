@@ -27,3 +27,11 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Stack
+<ul>
+    <li>Vue 3</li>
+    <li>Vue Router</li>
+    <li>Vuex(Flux)</li>
+    
+</ul>

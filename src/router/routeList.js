@@ -1,23 +1,47 @@
 import LoginView from "@/views/public/LoginView.vue"
 
-const url_base_private = "../views/private/"
-
 const routeList = [
-  { path: "/", component: LoginView },
+  {
+    path: "/",
+    component: LoginView,
+    name: "login",
+    meta: {
+      isPrivate: false,
+    },
+  },
   {
     path: "/app",
-    component: () => import(/* @vite-ignore */ `${url_base_private}DashboardView.vue`),
+    // alias: ["/dashboard", "/home"],
+    name: "app",
+    component: () => {
+      const url = "private"
+      return import(/* @vite-ignore */ `../views/${url}/DashboardView.vue`)
+    },
+    meta: {
+      isPrivate: true,
+    },
     children: [
-      { path: "/user", component: () => import(/* @vite-ignore */ `${url_base_private}UserView.vue`) },
-      { path: "/order", component: () => import(/* @vite-ignore */ `${url_base_private}OrderListView.vue`) },
+      { path: "/user", name: "user", component: () => import(/* @vite-ignore */ "@/views/private/UserView.vue") },
+      {
+        path: "/order",
+        name: "order",
+        component: () => import(/* @vite-ignore */ "@/views/private/OrderListView.vue"),
+      },
       {
         path: "/order/:id",
-        component: () => import(/* @vite-ignore */ `${url_base_private}OrderDetailView.vue`),
+        name: "order_id",
+        component: () => import(/* @vite-ignore */ "@/views/private/OrderDetailView.vue"),
+        props: true,
       },
-      { path: "/shippinggroups", component: () => import(/* @vite-ignore */ `${url_base_private}SGListView.vue`) },
+      {
+        path: "/shippinggroups",
+        name: "shippinggroups",
+        component: () => import(/* @vite-ignore */ "@/views/private/SGListView.vue"),
+      },
       {
         path: "/shippinggroups/:id",
-        component: () => import(/* @vite-ignore */ `${url_base_private}SGDetailView.vue`),
+        name: "shippinggroups_id",
+        component: () => import(/* @vite-ignore */ "@/views/private/SGDetailView.vue"),
       },
     ],
   },
